@@ -1,0 +1,32 @@
+services:
+  db:
+    image: postgres:15
+    container_name: local_pg
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: products
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    # Healthcheck section
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U",  "postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build: .
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: products
+      DB_HOST: db
+
+volumes:
+  pgdata:

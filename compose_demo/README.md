@@ -1,0 +1,1 @@
+This project shows how to build a simple ETL (Extract, Transform, Load) workflow using Python, Postgres, and Docker Compose, inspired by [Dataquest’s tutorial](https://www.dataquest.io/blog/intro-to-docker-compose/) and its [advanced part](https://www.dataquest.io/blog/advanced-concepts-in-docker-compose/).
