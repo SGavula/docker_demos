@@ -25,5 +25,9 @@ COPY --from=builder /app/app.py .
 # This makes them available to Python in the final runtime container
 COPY --from=builder /tmp/libs /usr/local/lib/python3.10/site-packages/
 
+# Switch to non-root user
+RUN useradd -m etluser && chown -R etluser:etluser /app
+USER etluser
+
 # Run the application
 CMD ["python", "app.py"]
